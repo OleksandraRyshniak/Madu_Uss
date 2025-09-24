@@ -10,20 +10,19 @@ namespace Madu_Uss
     {
         static void Main(string[] args)
         {
+            Console.CursorVisible = false;
+            Console.OutputEncoding = Encoding.UTF8;
             Console.SetWindowSize(80, 25);
 
-            HorizontalLine upline = new HorizontalLine(0, 78, 0, '+');
-            HorizontalLine downline = new HorizontalLine(0, 78, 24, '+');
-            VerticalLine vline = new VerticalLine(0, 24, 0, '+');
-            VerticalLine vline2 = new VerticalLine(0, 24, 78, '+');
-            upline.Drow();
-            downline.Drow();
-            vline.Drow();
-            vline2.Drow();
+            //Console.SetBufferSize(80, 25);
 
+            Walls walls = new Walls(80, 25);
+            walls.Draw();
+
+            // Отрисовка точек			
             Point p = new Point(4, 5, '*');
             Snake snake = new Snake(p, 4, Direction.RIGHT);
-            snake.Drow();
+            snake.Draw();
 
             FoodCreator foodCreator = new FoodCreator(80, 25, '$');
             Point food = foodCreator.CreateFood();
@@ -31,6 +30,10 @@ namespace Madu_Uss
 
             while (true)
             {
+                if (walls.IsHit(snake) || snake.IsHitTail())
+                {
+                    break;
+                }
                 if (snake.Eat(food))
                 {
                     food = foodCreator.CreateFood();
@@ -40,21 +43,38 @@ namespace Madu_Uss
                 {
                     snake.Move();
                 }
+
                 Thread.Sleep(100);
-
-                while (true)
+                if (Console.KeyAvailable)
                 {
-                    if (Console.KeyAvailable)
-                    {
-                        ConsoleKeyInfo key = Console.ReadKey();
-                        snake.HandleKey(key.Key);
-                    }
-                    snake.Move();
-                    Thread.Sleep(100);
-                //Console.ReadLine();
+                    ConsoleKeyInfo key = Console.ReadKey();
+                    snake.HandleKey(key.Key);
+                }
             }
+            WriteGameOver();
+            Console.ReadLine();
+
+            static void WriteGameOver()
+            {
+                int xOffset = 25;
+                int yOffset = 8;
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.SetCursorPosition(xOffset, yOffset++);
+                WriteText("============================", xOffset, yOffset++);
+                WriteText("     G A M E   O V E R   ", xOffset + 1, yOffset++);
+                yOffset++;
+                //WriteText("", xOffset + 2, yOffset++);
+                //WriteText("", xOffset + 1, yOffset++);
+                WriteText("============================", xOffset, yOffset++);
             }
 
+            static void WriteText(String text, int xOffset, int yOffset)
+            {
+                Console.SetCursorPosition(xOffset, yOffset);
+                Console.WriteLine(text);
+            }
+
+            Console.ReadLine();
         }
     }
 }
