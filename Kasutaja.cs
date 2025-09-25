@@ -8,18 +8,17 @@ namespace Madu_Uss
 {
     class Kasutaja
     {
-        public string Nimi {  get; set; }
-        public int Punktid { get; set; } = 0;
+        public string Nimi { get; set; }
         public Kasutaja(string kasutaja)
         {
             Nimi = kasutaja;
         }
-        public static bool KasutajaKontroll(string fail, string kasutaja)
+        public static bool KasutajaKontroll(string kasutaja)
         {
             List<string> kasutaja_list = new List<string>();
             try
             {
-                string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, fail);
+                string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\kasutaja.txt");
                 kasutaja_list = File.ReadAllLines(path).ToList();
             }
             catch (Exception)
@@ -53,21 +52,24 @@ namespace Madu_Uss
             Console.WriteLine("ЭТО ВАША ПЕРВАЯ ИГРА! ДАВАЙТЕ НАЧНЕМ.");
             return false;
         }
-        public static void SalvestaKasutaja(string fail, Kasutaja kasutaja)
+        public static void SalvestaKasutaja(Kasutaja kasutaja, int punktid)
         {
-            try
+            string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\kasutaja.txt");
+            List<string> read = new List<string>();
+            if (File.Exists(path))
             {
-                string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, fail);
-                using (StreamWriter sw = new StreamWriter(path, true))
+                read = new List<string>(File.ReadAllLines(path));
+            }
+            for (int i = 0; i < read.Count; i++)
+            {
+                if (read[i].StartsWith(kasutaja.Nimi + ";"))
                 {
-                    sw.WriteLine($"{kasutaja.Nimi};{kasutaja.Punktid}");
+                    read.RemoveAt(i);
+                    break; 
                 }
             }
-            catch (Exception)
-            {
-                Console.WriteLine("Viga faili salvestamisel!");
-            }
+            read.Add(kasutaja.Nimi + ";" + punktid);
+            File.WriteAllLines(path, read);
         }
-
     }
 }

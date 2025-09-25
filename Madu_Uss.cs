@@ -5,6 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Madu_Uss
+
+//добавить звук при столкновении
+//добавить уровни сложности
+//добавить таблицу рекордов
 {
     internal class Madu_Uss
     {
@@ -13,7 +17,7 @@ namespace Madu_Uss
             Console.OutputEncoding = Encoding.UTF8;
             Console.WriteLine("Kas tahad mängida madu?");
             string vastus = Console.ReadLine().ToLower();
-            if (vastus != "jah" && vastus != "j" && vastus != "yes" && vastus != "y" && vastus != "да")
+            if (vastus != "jah" && vastus != "yes" && vastus != "да")
             {
                 Console.WriteLine("Ok, head aega!");
                 return;
@@ -22,7 +26,7 @@ namespace Madu_Uss
             Console.Write("Sisesta oma kasutajanimi: ");
             string nimi = Console.ReadLine();
 
-            bool kasutajaLeitud = Kasutaja.KasutajaKontroll(@"..\..\..\kasutajad.txt", nimi);
+            bool kasutajaLeitud = Kasutaja.KasutajaKontroll(nimi);
 
             Console.WriteLine("Нажмите любую клавишу, чтобы начать игру...");
             Console.ReadKey();
@@ -71,6 +75,8 @@ namespace Madu_Uss
             }
 
             WriteGameOver(nimi, punktid.PunktideArv());
+            Kasutaja.SalvestaKasutaja(new Kasutaja(nimi), punktid.PunktideArv());
+
             Console.ReadLine();
         }
 
@@ -82,7 +88,6 @@ namespace Madu_Uss
             Console.SetCursorPosition(xOffset, yOffset++);
             WriteText("============================", xOffset, yOffset++);
             WriteText("     G A M E   O V E R   ", xOffset + 1, yOffset++);
-            //yOffset++;
             WriteText($"KASUTAJA: {nimi} Punktid: {punktid}", xOffset + 2, yOffset++);
             WriteText("============================", xOffset, yOffset++);
         }
