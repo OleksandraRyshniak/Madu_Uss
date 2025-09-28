@@ -1,1 +1,5 @@
-Nimi=sda;Punktid=0
+were;20
+oleksandra;40
+oleka;60
+sasha;10
+ole;20

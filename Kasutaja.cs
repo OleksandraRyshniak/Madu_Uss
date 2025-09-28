@@ -53,37 +53,23 @@ namespace Madu_Uss
             return false;
         }
         public static void SalvestaKasutaja(Kasutaja kasutaja, int punktid)
-        // string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "kasutaja.txt");
         {
             string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\kasutaja.txt");
             List<string> read = new List<string>();
-
-            try
+            if (File.Exists(path))
             {
-                // читаем всех старых пользователей, если файл существует
-                if (File.Exists(path))
+                read = new List<string>(File.ReadAllLines(path));
+            }
+            for (int i = 0; i < read.Count; i++)
+            {
+                if (read[i].StartsWith(kasutaja.Nimi + ";"))
                 {
-                    read = File.ReadAllLines(path).ToList();
+                    read.RemoveAt(i);
+                    break;
                 }
-
-                // удаляем старую запись этого же игрока (если была)
-                read.RemoveAll(line => line.StartsWith($"Nimi={kasutaja.Nimi};"));
-
-                // добавляем нового (даже если 0 очков)
-                read.Add($"Nimi={kasutaja.Nimi};Punktid={punktid}");
-
-                // сохраняем обратно всех
-                File.WriteAllLines(path, read);
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Ошибка при сохранении пользователя: " + ex.Message);
-            }
+            read.Add(kasutaja.Nimi + ";" + punktid);
+            File.WriteAllLines(path, read);
         }
-
-
-
-
     }
 }
-
