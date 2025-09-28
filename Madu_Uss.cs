@@ -46,22 +46,23 @@ namespace Madu_Uss
             Point food = foodCreator.CreateFood();
             food.Draw();
 
-            
+            Obstacles obstacles = null;
             Point p = new Point(4, 5, '*');
             Snake snake = new Snake(p, 4, Direction.RIGHT);
             snake.Draw();
 
-            Obstacles obstacles = new Obstacles(sizeX, sizeY, 10, '#');
+            
 
             if (sizeX == 55)
             {
+                obstacles = new Obstacles(sizeX, sizeY, 10, '#');
                 obstacles.Draw();
             }
 
 
             while (true)
             {
-                if (walls.IsHit(snake) || snake.IsHitTail() || obstacles.IsHit(snake.GetNextPoint().x, snake.GetNextPoint().y))
+                if (walls.IsHit(snake) || snake.IsHitTail() || (obstacles != null && obstacles.IsHit(snake.GetNextPoint().x, snake.GetNextPoint().y)))
                 {
                     break;
                 }

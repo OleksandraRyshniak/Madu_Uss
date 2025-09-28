@@ -3,7 +3,14 @@ oleksandra;40
 oleka;60
 sasha;10
 kil;60
-ole;20
 ef;10
 dd;0
 ol;30
+ei;0
+ifk;0
+jah;50
+olw;0
+ww;0
+dq;0
+ole;30
+ew;100
