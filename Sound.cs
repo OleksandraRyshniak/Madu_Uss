@@ -1,41 +1,42 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Media;
-using WMPLib;
+using System.IO;
+using System.Media; 
 
 
 namespace Snake
 {
-    class Sound
+    class Sound //Muusika
+
     {
+        private SoundPlayer eatPlayer;
+        private SoundPlayer gameOverPlayer;
+
+        public Sound()
+        {
+            string basePath = AppDomain.CurrentDomain.BaseDirectory;
+
+            string eatPath = Path.Combine(basePath, "eat.wav");
+            string gameOverPath = Path.Combine(basePath, "gameover1.wav");
+
+            if (File.Exists(eatPath))
+                eatPlayer = new SoundPlayer(eatPath);
+            else
+                Console.WriteLine("Eat sound не найден: " + eatPath);
+
+            if (File.Exists(gameOverPath))
+                gameOverPlayer = new SoundPlayer(gameOverPath);
+            else
+                Console.WriteLine("GameOver sound не найден: " + gameOverPath);
+        }
+
         public void EatSound()
         {
-            try
-            {
-                WindowsMediaPlayer player = new WindowsMediaPlayer();
-                player.URL = "eat.mp3";
-                player.controls.play();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error playing sound: " + ex.Message);
-            }
+            eatPlayer?.Play(); 
         }
+
         public void GameOverSound()
         {
-            try
-            {
-                WindowsMediaPlayer player = new WindowsMediaPlayer();
-                player.URL = "gameover.mp3";
-                player.controls.play();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error playing sound: " + ex.Message);
-            }
+            gameOverPlayer?.Play(); 
         }
     }
 }

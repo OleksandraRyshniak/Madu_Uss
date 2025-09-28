@@ -8,7 +8,8 @@ using System.Xml.Linq;
 
 namespace Madu_Uss
 {
-     class Tase
+     class Tase //Tasemed
+
     {
         public static (int speed, int sizeX, int sizeY) Vali_Tase()
         {
@@ -45,7 +46,7 @@ namespace Madu_Uss
                 2 => 80,
                 3 => 60,
                 4 => 50,
-                5 => 50,
+                5 => 55,
                 _ => 100
             };
             int sizeY = tase switch

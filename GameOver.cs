@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Madu_Uss
 {
-    class GameOver
+    class GameOver //loemine faili
     {
         public static List<string> ReadFile()
         {
@@ -17,7 +17,7 @@ namespace Madu_Uss
                 string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\kasutaja.txt");
                 kasutaja_top = File.ReadAllLines(path).ToList();
                 var sorted = kasutaja_top
-                .OrderByDescending(kasutaja => int.Parse(kasutaja.Split(';')[1])) // берём второе значение
+                .OrderByDescending(kasutaja => int.Parse(kasutaja.Split(';')[1])) 
                 .ToList();
 
                 return sorted;

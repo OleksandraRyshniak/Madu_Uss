@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace Madu_Uss
 {
-    class Punktid
+    class Punktid //Punktide arv
+
     {
         private int punktid = 0;
 

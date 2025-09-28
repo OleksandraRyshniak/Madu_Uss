@@ -29,4 +29,9 @@
     </COMReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="NAudio.WaveFormRenderer" Version="2.0.0" />
+    <PackageReference Include="System.Windows.Extensions" Version="9.0.9" />
+  </ItemGroup>
+
 </Project>

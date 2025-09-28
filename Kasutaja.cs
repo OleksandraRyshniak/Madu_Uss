@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Madu_Uss
 {
-    class Kasutaja
+    class Kasutaja //Kasutajate lisamine ja salvestamine koos nende tulemusega
+
     {
         public string Nimi { get; set; }
         public Kasutaja(string kasutaja)
@@ -49,7 +50,7 @@ namespace Madu_Uss
                 }
             }
 
-            Console.WriteLine("ЭТО ВАША ПЕРВАЯ ИГРА! ДАВАЙТЕ НАЧНЕМ.");
+            Console.WriteLine("See on teie esimene mäng! Alustame");
             return false;
         }
         public static void SalvestaKasutaja(Kasutaja kasutaja, int punktid)

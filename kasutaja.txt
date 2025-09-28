@@ -2,4 +2,8 @@ were;20
 oleksandra;40
 oleka;60
 sasha;10
+kil;60
 ole;20
+ef;10
+dd;0
+ol;30
