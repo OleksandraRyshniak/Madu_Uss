@@ -13,16 +13,16 @@ namespace Madu_Uss
     {
         public static (int speed, int sizeX, int sizeY) Vali_Tase()
         {
-            Console.WriteLine("Vali tase (1-5): ");
+            Console.WriteLine("Vali tase \n1.Lihtne; \n2.Keskmine \n3.Raske : ");
             int tase = 0;
-            while (tase < 1 || tase > 5)
+            while (tase < 1 || tase > 3)
             {
                 try
                 {
                     tase = int.Parse(Console.ReadLine());
-                    if (tase < 1 || tase > 5)
+                    if (tase < 1 || tase > 3)
                     {
-                        Console.WriteLine("Palun vali tase vahemikus 1 kuni 5.");
+                        Console.WriteLine("Palun vali tase vahemikus 1 kuni 3.");
                     }
                 }
                 catch (FormatException)
@@ -34,9 +34,7 @@ namespace Madu_Uss
             {
                 1 => 100,
                 2 => 90,
-                3 => 80,
-                4 => 70,
-                5 => 60,
+                3 => 70,
                 _ => 100
             };
 
@@ -44,9 +42,7 @@ namespace Madu_Uss
             {
                 1 => 100,
                 2 => 80,
-                3 => 60,
-                4 => 50,
-                5 => 55,
+                3 => 55,
                 _ => 100
             };
             int sizeY = tase switch
@@ -54,8 +50,6 @@ namespace Madu_Uss
                 1 => 30,
                 2 => 25,
                 3 => 20,
-                4 => 20,
-                5 => 20,
                 _ => 30
             };
             return (speed, sizeX, sizeY);

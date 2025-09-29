@@ -6,7 +6,9 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WMPLib;
+using NAudio;
+using NAudio.Wave;
+using System.Data;
 
 namespace Madu_Uss
 {
@@ -22,9 +24,30 @@ namespace Madu_Uss
                 Console.WriteLine("Ok, head aega!");
                 return;
             }
-
             Console.Write("Sisesta oma kasutajanimi: ");
-            string nimi = Console.ReadLine();
+            string nimi = "";
+            while (true)
+            {
+
+                try
+                {
+                    nimi = Console.ReadLine();
+                    if (nimi.Length < 3)
+                    {
+                        Console.WriteLine("Kasutajanimi peab olema 3 tähemarki pikk. Proovi uuesti:");
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+            }
+
 
             bool kasutajaLeitud = Kasutaja.KasutajaKontroll(nimi);
             var (speed, sizeX, sizeY) = Tase.Vali_Tase();
@@ -32,7 +55,10 @@ namespace Madu_Uss
 
             Console.ReadKey();
             Console.Clear();
-            
+            Sound sound = new Sound();
+            new Sound().FonSound();
+
+
 
             Console.CursorVisible = false;
             Punktid punktid = new Punktid();
@@ -41,7 +67,7 @@ namespace Madu_Uss
             Walls walls = new Walls(sizeX, sizeY);
             walls.Draw();
 
-            
+
             FoodCreator foodCreator = new FoodCreator(sizeX, sizeY, '@');
             Point food = foodCreator.CreateFood();
             food.Draw();
@@ -51,11 +77,15 @@ namespace Madu_Uss
             Snake snake = new Snake(p, 4, Direction.RIGHT);
             snake.Draw();
 
-            
+            Elu elu = new Elu();
+            elu.Draw();
+            Console.ResetColor();
+            int eluarv = 3;
+            int pun = 0;
 
             if (sizeX == 55)
             {
-                obstacles = new Obstacles(sizeX, sizeY, 10, '#');
+                obstacles = new Obstacles(sizeX-10, sizeY-10, 7, '#');
                 obstacles.Draw();
             }
 
@@ -64,15 +94,29 @@ namespace Madu_Uss
             {
                 if (walls.IsHit(snake) || snake.IsHitTail() || (obstacles != null && obstacles.IsHit(snake.GetNextPoint().x, snake.GetNextPoint().y)))
                 {
-                    break;
+                    if (eluarv == 0)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        elu.LoseLife();
+                        snake.Clear();
+                        eluarv--;
+                        snake = new Snake(p, 4+pun, Direction.RIGHT);
+                        snake.Draw();
+
+                    }
                 }
 
                 if (snake.Eat(food))
                 {
                     new Sound().EatSound();
+                    pun++;
                     punktid.LisaPunkte(10);
                     food = foodCreator.CreateFood();
                     food.Draw();
+                    new Sound().FonSound();
                 }
                 else
                 {
@@ -90,6 +134,7 @@ namespace Madu_Uss
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine($"Punktid: {punktid.PunktideArv()}");
                 Console.ResetColor();
+
             }
 
             Console.Clear();
@@ -113,7 +158,7 @@ namespace Madu_Uss
                 int count = Math.Min(5, top.Count);
                 for (int i = 0; i < count; i++)
                 {
-                    WriteText($"{i + 1 }.  {top[i]}  ", xOffset + 4, yOffset++);
+                    WriteText($"{i + 1}.  {top[i]}  ", xOffset + 4, yOffset++);
                 }
                 WriteText("=====================================================", xOffset, yOffset++);
             }
@@ -126,3 +171,4 @@ namespace Madu_Uss
         }
     }
 }
+

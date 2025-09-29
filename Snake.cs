@@ -10,6 +10,14 @@ namespace Madu_Uss
     {
         Direction direction;
 
+        public void Clear()
+        {
+            foreach (Point p in pList)
+            {
+                Console.SetCursorPosition(p.x, p.y);
+                Console.Write(" ");
+            }
+        }
         public Snake(Point tail, int length, Direction _direction)
         {
             direction = _direction;

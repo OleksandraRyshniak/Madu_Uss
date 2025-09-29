@@ -29,7 +29,7 @@ namespace Snake
                         y = rand.Next(1, height - 1);
                     } while (blocks.Contains((x, y))); 
 
-                    blocks.Add((x, y));
+                    blocks.Add((x+1, y+1));
                 }
             }
             public void Draw()
