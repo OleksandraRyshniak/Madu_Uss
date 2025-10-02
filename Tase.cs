@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Metadata.Ecma335;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace Madu_Uss
 {
-     class Tase //Tasemed
-
+    class Tase //Tasemed
     {
         public static (int speed, int sizeX, int sizeY) Vali_Tase()
         {
@@ -54,5 +54,5 @@ namespace Madu_Uss
             };
             return (speed, sizeX, sizeY);
         }
-     }
+    }
 }

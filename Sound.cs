@@ -30,36 +30,33 @@ namespace Snake
             string eatPath = Path.Combine(basePath, "eat.wav");
             string gameOverPath = Path.Combine(basePath, "gameover1.wav");
 
-            // Инициализация фонового звука
             if (File.Exists(fonPath))
             {
                 fonAudioReader = new AudioFileReader(fonPath);
                 fonOutputDevice = new WaveOutEvent();
-                fonOutputDevice.Init(fonAudioReader);
+                //fonOutputDevice.Init(fonAudioReader);
             }
             else
             {
                 Console.WriteLine("Файл fon.wav не найден: " + fonPath);
             }
 
-            // Инициализация звука еды
             if (File.Exists(eatPath))
             {
                 eatAudioReader = new AudioFileReader(eatPath);
                 eatOutputDevice = new WaveOutEvent();
-                eatOutputDevice.Init(eatAudioReader);
+               // eatOutputDevice.Init(eatAudioReader);
             }
             else
             {
                 Console.WriteLine("Файл eat.wav не найден: " + eatPath);
             }
 
-            // Инициализация звука game over
             if (File.Exists(gameOverPath))
             {
                 gameOverAudioReader = new AudioFileReader(gameOverPath);
                 gameOverOutputDevice = new WaveOutEvent();
-                gameOverOutputDevice.Init(gameOverAudioReader);
+                //gameOverOutputDevice.Init(gameOverAudioReader);
             }
             else
             {
@@ -67,14 +64,12 @@ namespace Snake
             }
         }
 
-        // 🔊 Отдельные функции для воспроизведения
-
         public void PlayFonSound()
         {
             if (fonOutputDevice != null && fonAudioReader != null)
             {
                 fonAudioReader.Position = 0;
-                fonOutputDevice.Play();
+                //fonOutputDevice.Play();
             }
         }
 
@@ -83,7 +78,7 @@ namespace Snake
             if (eatOutputDevice != null && eatAudioReader != null)
             {
                 eatAudioReader.Position = 0;
-                eatOutputDevice.Play();
+                //eatOutputDevice.Play();
             }
         }
 
@@ -92,13 +87,22 @@ namespace Snake
             if (gameOverOutputDevice != null && gameOverAudioReader != null)
             {
                 gameOverAudioReader.Position = 0;
-                gameOverOutputDevice.Play();
+                //gameOverOutputDevice.Play();
             }
         }
 
         public void StopFonSound()
         {
             fonOutputDevice?.Stop();
+        }
+
+        public void ReplayFonSound()
+        {
+            if (fonOutputDevice != null && fonAudioReader != null)
+            {
+                fonAudioReader.Position = 0;
+                //fonOutputDevice.Play();
+            }
         }
     }
 }

@@ -4,4 +4,6 @@ ghj;0
 sdfs;0
 otor;40
 ewda;0
-ole;50
+oler;0
+dsdjfs;10
+ole;370
