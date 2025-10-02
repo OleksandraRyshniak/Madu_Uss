@@ -56,7 +56,7 @@ namespace Madu_Uss
             Console.ReadKey();
             Console.Clear();
             Sound sound = new Sound();
-            new Sound().FonSound();
+            new Sound().PlayFonSound();
 
 
 
@@ -111,12 +111,12 @@ namespace Madu_Uss
 
                 if (snake.Eat(food))
                 {
-                    new Sound().EatSound();
+                    new Sound().PlayEatSound();
                     pun++;
                     punktid.LisaPunkte(10);
                     food = foodCreator.CreateFood();
                     food.Draw();
-                    new Sound().FonSound();
+                  
                 }
                 else
                 {
@@ -136,9 +136,10 @@ namespace Madu_Uss
                 Console.ResetColor();
 
             }
-
+            
+            new Sound().StopFonSound();
             Console.Clear();
-            new Sound().GameOverSound();
+            new Sound().PlayGameOverSound();
             Kasutaja.SalvestaKasutaja(new Kasutaja(nimi), punktid.PunktideArv());
             WriteGameOver(nimi, punktid.PunktideArv());
             Console.ReadLine();
