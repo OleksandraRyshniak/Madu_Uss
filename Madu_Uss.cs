@@ -55,8 +55,9 @@ namespace Madu_Uss
 
             Console.ReadKey();
             Console.Clear();
-            Sound sound = new Sound();
+            
             new Sound().PlayFonSound();
+            
             int kogusspeed = 0;
 
 
@@ -84,6 +85,9 @@ namespace Madu_Uss
             int pun = 0;
             Food_SpeedCreator speedCreator = new Food_SpeedCreator(sizeX, sizeY, '%');
             Point speed1 = speedCreator.CreateFood_Speed();
+            Console.ForegroundColor = ConsoleColor.Green;
+            speed1.Draw();
+            Console.ResetColor();
 
             if (sizeX == 55)
             {
@@ -132,12 +136,6 @@ namespace Madu_Uss
                     ConsoleKeyInfo key = Console.ReadKey(true);
                     snake.HandleKey(key.Key);
                 }
-                if (sizeX == 80)
-                {
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    speed1.Draw();
-                    Console.ResetColor();
-                }
                 if (snake.Eat(speed1))
                 {
                     Console.ForegroundColor = ConsoleColor.Green;
@@ -151,7 +149,6 @@ namespace Madu_Uss
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine($"Punktid: {punktid.PunktideArv()}");
                 Console.ResetColor();
-
             }
             
             new Sound().StopFonSound();
