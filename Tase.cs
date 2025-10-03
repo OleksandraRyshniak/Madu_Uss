@@ -11,9 +11,9 @@ namespace Madu_Uss
 {
     class Tase //Tasemed
     {
-        public static (int speed, int sizeX, int sizeY) Vali_Tase()
+        public static (int speed, int sizeX, int sizeY) Vali_Tase() //запрашивание у пользователя какой уровень он хочет
         {
-            Console.WriteLine("Vali tase \n1.Lihtne; \n2.Keskmine \n3.Raske : ");
+            Console.WriteLine("Vali tase \n1.Lihtne \n2.Keskmine \n3.Raske  ");
             int tase = 0;
             while (tase < 1 || tase > 3)
             {
@@ -23,6 +23,7 @@ namespace Madu_Uss
                     if (tase < 1 || tase > 3)
                     {
                         Console.WriteLine("Palun vali tase vahemikus 1 kuni 3.");
+                        
                     }
                 }
                 catch (FormatException)
@@ -32,7 +33,7 @@ namespace Madu_Uss
             }
             int speed = tase switch
             {
-                1 => 100,
+                1 => 100, 
                 2 => 90,
                 3 => 90,
                 _ => 100

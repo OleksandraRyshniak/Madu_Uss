@@ -22,7 +22,7 @@ namespace Snake
         private IWavePlayer gameOverOutputDevice;
         private AudioFileReader gameOverAudioReader;
 
-        public Sound()
+        public Sound() //muusika
         {
             string basePath = AppDomain.CurrentDomain.BaseDirectory;
 
@@ -34,7 +34,7 @@ namespace Snake
             {
                 fonAudioReader = new AudioFileReader(fonPath);
                 fonOutputDevice = new WaveOutEvent();
-                fonOutputDevice.Init(fonAudioReader);
+                //fonOutputDevice.Init(fonAudioReader);
             }
             else
             {
@@ -45,7 +45,7 @@ namespace Snake
             {
                 eatAudioReader = new AudioFileReader(eatPath);
                 eatOutputDevice = new WaveOutEvent();
-                eatOutputDevice.Init(eatAudioReader);
+                //eatOutputDevice.Init(eatAudioReader);
             }
             else
             {
@@ -56,7 +56,7 @@ namespace Snake
             {
                 gameOverAudioReader = new AudioFileReader(gameOverPath);
                 gameOverOutputDevice = new WaveOutEvent();
-                gameOverOutputDevice.Init(gameOverAudioReader);
+                //gameOverOutputDevice.Init(gameOverAudioReader);
             }
             else
             {
@@ -69,7 +69,7 @@ namespace Snake
             if (fonOutputDevice != null && fonAudioReader != null)
             {
                 fonAudioReader.Position = 0;
-                fonOutputDevice.Play();
+                //fonOutputDevice.Play();
             }
         }
 
@@ -78,7 +78,7 @@ namespace Snake
             if (eatOutputDevice != null && eatAudioReader != null)
             {
                 eatAudioReader.Position = 0;
-                eatOutputDevice.Play();
+               // eatOutputDevice.Play();
             }
         }
 
@@ -87,7 +87,7 @@ namespace Snake
             if (gameOverOutputDevice != null && gameOverAudioReader != null)
             {
                 gameOverAudioReader.Position = 0;
-                gameOverOutputDevice.Play();
+                //gameOverOutputDevice.Play();
             }
         }
 
@@ -101,7 +101,7 @@ namespace Snake
             if (fonOutputDevice != null && fonAudioReader != null)
             {
                 fonAudioReader.Position = 0;
-                fonOutputDevice.Play();
+                //fonOutputDevice.Play();
             }
         }
     }

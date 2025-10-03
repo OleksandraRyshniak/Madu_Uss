@@ -12,7 +12,7 @@ namespace Madu_Uss
     {
         private int punktid = 0;
 
-        public void LisaPunkte(int arv)
+        public void LisaPunkte(int arv) // cчесчик пунктов
         {
             punktid += arv;
         }

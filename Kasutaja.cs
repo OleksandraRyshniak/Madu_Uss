@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Intrinsics.X86;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Madu_Uss
 {
-    class Kasutaja //Kasutajate lisamine ja salvestamine koos nende tulemusega
+    class Kasutaja //kasutajate lisamine ja salvestamine koos nende tulemusega
 
     {
         public string Nimi { get; set; }
@@ -14,8 +15,8 @@ namespace Madu_Uss
         {
             Nimi = kasutaja;
         }
-        public static bool KasutajaKontroll(string kasutaja)
-        {
+        public static bool KasutajaKontroll(string kasutaja) //kasutaja mängimise kontrollimine
+        {  
             List<string> kasutaja_list = new List<string>();
             try
             {
@@ -44,16 +45,16 @@ namespace Madu_Uss
 
                     if (nimi == kasutaja)
                     {
-                        Console.WriteLine($"Kasutaja {kasutaja} viimane mäng oli {punktidStr} punkti.");
+                        Console.WriteLine($"Kasutaja {kasutaja} viimane mäng oli {punktidStr} punkti."); //kui kasutaja on juba mänginud, siis kuvada see rida
                         return true;
                     }
                 }
             }
 
-            Console.WriteLine("See on teie esimene mäng! Alustame");
+            Console.WriteLine("See on teie esimene mäng! Alustame"); //kui ei ole, siis see rida
             return false;
         }
-        public static void SalvestaKasutaja(Kasutaja kasutaja, int punktid)
+        public static void SalvestaKasutaja(Kasutaja kasutaja, int punktid) //kasutaja salvestamine tema punktidega
         {
             string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\kasutaja.txt");
             List<string> read = new List<string>();
@@ -71,6 +72,33 @@ namespace Madu_Uss
             }
             read.Add(kasutaja.Nimi + ";" + punktid);
             File.WriteAllLines(path, read);
+        }
+        public static string Parkasutaja() //kasutaja sisestab oma nime
+        {
+            Console.Write("Sisesta oma kasutajanimi: ");
+            string nimi = "";
+            while (true)
+            {
+
+                try
+                {
+                    nimi = Console.ReadLine(); 
+                    if (nimi.Length < 3) // kontrolli: nimi vähemalt 3 tähemärki, palun uuesti
+                    {
+                        Console.WriteLine("Kasutajanimi peab olema 3 tähemarki pikk. Proovi uuesti:");
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+            }
+            return nimi;
         }
     }
 }

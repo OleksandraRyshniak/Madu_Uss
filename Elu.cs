@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace Madu_Uss
 {
-    public class Elu
+    public class Elu //elude klass
     {
         private int lives;
 
-        public Elu(int lives = 3) // конструктор, по умолчанию 3 жизни
+        public Elu(int lives = 3) 
         {
             this.lives = lives;
         }
 
-        public void Draw()
+        public void Draw() // elude joonistamine
         {
             for (int i = 0; i < lives; i++)
             {
@@ -26,19 +26,19 @@ namespace Madu_Uss
             Console.ResetColor();
         }
 
-        public void LoseLife()
+        public void LoseLife() //Viimase elu eemaldamine
         {
             if (lives > 0)
             {
                 lives--;
-                Clear(13 + lives * 2, 0); // стираем последнее сердечко
+                Clear(13 + lives * 2, 0); 
             }
         }
 
-        private void Clear(int x, int y)
+        private void Clear(int x, int y) //Tühikute eemaldamine
         {
             Console.SetCursorPosition(x, y);
-            Console.Write(" "); // затираем пробелом
+            Console.Write(" "); 
         }
     }
 

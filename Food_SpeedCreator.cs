@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Madu_Uss
 {
-    class Food_SpeedCreator
+    class Food_SpeedCreator // Toidu loomine ja täiendav kiirus
     {
         int mapWidht;
         int mapHeight;

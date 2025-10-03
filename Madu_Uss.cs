@@ -17,81 +17,48 @@ namespace Madu_Uss
         static void Main(string[] args)
         {
             Console.OutputEncoding = Encoding.UTF8;
-            Console.WriteLine("Kas tahad mängida madu?");
-            string vastus = Console.ReadLine().ToLower();
-            if (vastus != "jah" && vastus != "yes")
-            {
-                Console.WriteLine("Ok, head aega!");
-                return;
-            }
-            Console.Write("Sisesta oma kasutajanimi: ");
-            string nimi = "";
-            while (true)
-            {
+            string nimi = Kasutaja.Parkasutaja(); //kasutaja nimi
 
-                try
-                {
-                    nimi = Console.ReadLine();
-                    if (nimi.Length < 3)
-                    {
-                        Console.WriteLine("Kasutajanimi peab olema 3 tähemarki pikk. Proovi uuesti:");
-                    }
-                    else
-                    {
-                        break;
-                    }
-                }
-                catch (Exception)
-                {
-
-                    throw;
-                }
-            }
-
-
-            bool kasutajaLeitud = Kasutaja.KasutajaKontroll(nimi);
-            var (speed, sizeX, sizeY) = Tase.Vali_Tase();
+            bool kasutajaLeitud = Kasutaja.KasutajaKontroll(nimi); //kontrolli kasutaja
+            var (speed, sizeX, sizeY) = Tase.Vali_Tase(); //taseme valik 
             Console.WriteLine("Vajuta ükskõik millist klahvi, et alustada mängu...");
 
             Console.ReadKey();
             Console.Clear();
             
-            new Sound().PlayFonSound();
-            
-            int kogusspeed = 0;
-
-
+            //new Sound().PlayFonSound(); //fon muusika
             Console.CursorVisible = false;
-            Punktid punktid = new Punktid();
+            Punktid punktid = new Punktid(); //punktide loendur
             punktid.LisaPunkte(0);
 
-            Walls walls = new Walls(sizeX, sizeY);
+            Walls walls = new Walls(sizeX, sizeY); //seinte joonistamine
             walls.Draw();
 
 
-            Food_SpeedCreator foodCreator = new Food_SpeedCreator(sizeX, sizeY, '@');
+            Food_SpeedCreator foodCreator = new Food_SpeedCreator(sizeX, sizeY, '@'); // toit joonistamine
             Point food = foodCreator.CreateFood_Speed();
             food.Draw();
 
             Obstacles obstacles = null;
             Point p = new Point(4, 5, '*');
-            Snake snake = new Snake(p, 4, Direction.RIGHT);
+            Snake snake = new Snake(p, 4, Direction.RIGHT); //madu joonistamine
             snake.Draw();
 
-            Elu elu = new Elu();
+            Elu elu = new Elu(); //elud
             elu.Draw();
             Console.ResetColor();
             int eluarv = 3;
             int pun = 0;
+            int kogusspeed = 0;
             Food_SpeedCreator speedCreator = new Food_SpeedCreator(sizeX, sizeY, '%');
-            Point speed1 = speedCreator.CreateFood_Speed();
+            Point speed1 = speedCreator.CreateFood_Speed(); //täiendava kiirenduse joonistamine
             Console.ForegroundColor = ConsoleColor.Green;
             speed1.Draw();
             Console.ResetColor();
 
             if (sizeX == 55)
             {
-                obstacles = new Obstacles(sizeX-10, sizeY-10, 7, '#');
+                obstacles = new Obstacles(sizeX-10, sizeY-10, 7, '#'); //3. taseme tõkete joonistamine
                 obstacles.Draw();
             }
 
@@ -113,13 +80,13 @@ namespace Madu_Uss
                         snake.Draw();
                         walls = new Walls(sizeX, sizeY);
                         walls.Draw();
-                        speed +=kogusspeed;
+                        speed += kogusspeed;
                     }
                 }
 
-                if (snake.Eat(food))
+                if (snake.Eat(food)) 
                 {
-                    new Sound().PlayEatSound();
+                    //new Sound().PlayEatSound();
                     pun++;
                     punktid.LisaPunkte(10);
                     food = foodCreator.CreateFood_Speed();
@@ -136,7 +103,7 @@ namespace Madu_Uss
                     ConsoleKeyInfo key = Console.ReadKey(true);
                     snake.HandleKey(key.Key);
                 }
-                if (snake.Eat(speed1))
+                if (snake.Eat(speed1)) //kui madu sööb täiendava kiiruse
                 {
                     Console.ForegroundColor = ConsoleColor.Green;
                     kogusspeed += 10;
@@ -150,39 +117,12 @@ namespace Madu_Uss
                 Console.WriteLine($"Punktid: {punktid.PunktideArv()}");
                 Console.ResetColor();
             }
-            
-            new Sound().StopFonSound();
+            //new Sound().StopFonSound();
             Console.Clear();
-            new Sound().PlayGameOverSound();
+            //new Sound().PlayGameOverSound(); //lõpp mäng
             Kasutaja.SalvestaKasutaja(new Kasutaja(nimi), punktid.PunktideArv());
-            WriteGameOver(nimi, punktid.PunktideArv());
+            new GameOver().WriteGameOver(nimi, punktid.PunktideArv());
             Console.ReadLine();
-
-            static void WriteGameOver(string nimi, int punktid)
-            {
-
-                int xOffset = 25;
-                int yOffset = 8;
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.SetCursorPosition(xOffset, yOffset++);
-                WriteText("====================================================", xOffset, yOffset++);
-                WriteText("                   M Ä N G   L Õ P P                ", xOffset + 1, yOffset++);
-                WriteText($"   K A S U T A J A : {nimi}  P U N K T I D : {punktid}    ", xOffset + 2, yOffset++);
-                WriteText($"           T U L E M U S T E  T A B E L            ", xOffset + 3, yOffset++);
-                List<string> top = GameOver.ReadFile();
-                int count = Math.Min(5, top.Count);
-                for (int i = 0; i < count; i++)
-                {
-                    WriteText($"{i + 1}.  {top[i]}  ", xOffset + 4, yOffset++);
-                }
-                WriteText("=====================================================", xOffset, yOffset++);
-            }
-
-            static void WriteText(string text, int xOffset, int yOffset)
-            {
-                Console.SetCursorPosition(xOffset, yOffset);
-                Console.WriteLine(text);
-            }
         }
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Snake
 {
-    class Obstacles //Takistuste lisamine 5. tasemel
+    class Obstacles //Класс для додавления преград
 
     {
         private List<(int x, int y)> blocks;
@@ -11,7 +11,7 @@ namespace Snake
         private int height;
         private char symbol;
 
-        public Obstacles(int width, int height, int count, char symbol = 'X')
+        public Obstacles(int width, int height, int count, char symbol = 'X') //рандомный выбор местоположения преград
         {
             this.width = width;
             this.height = height;
@@ -32,7 +32,7 @@ namespace Snake
                 blocks.Add((x + 1, y + 1));
             }
         }
-        public void Draw()
+        public void Draw() //рисование преград
         {
             Console.ForegroundColor = ConsoleColor.DarkRed;
             foreach (var (x, y) in blocks)
